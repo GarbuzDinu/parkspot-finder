@@ -4,11 +4,12 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-export interface ParkSlot {
+
+export interface ParkSlotDto {
   id?: number;
   name?: string;
   address?: string;
   freeSlots?: number;
   busySlots?: number;
+  rating?: number;
 }
-

@@ -1,15 +1,24 @@
-import { defineConfig } from 'orval';
+import { defineConfig } from "orval";
 
 export default defineConfig({
-  parkApi: {
+  "backend-endpoints": {
     input: {
-      target: 'http://localhost:8080/v3/api-docs',
+      target: "openapi.json",
     },
     output: {
-      target: './src/api/generated.ts',
-      client: 'axios',
-      mode: 'tags',
+      mode: "single",
       prettier: true,
+      clean: true,
+      client: "react-query",
+      workspace: "./src/api",
+      target: "./endpoints.ts",
+      schemas: "./model",
+      override: {
+        mutator: {
+          path: "../config/axiosConfig.ts",
+          name: "customInstance",
+        },
+      },
     },
   },
 });

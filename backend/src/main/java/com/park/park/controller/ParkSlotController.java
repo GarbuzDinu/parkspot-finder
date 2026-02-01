@@ -1,75 +1,61 @@
 package com.park.park.controller;
 
-import com.park.park.entity.ParkSlot;
-import com.park.park.repository.ParkSlotRepository;
+import com.park.park.dto.ParkSlotDto;
+import com.park.park.service.ParkSlotService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/park-slots")
 public class ParkSlotController {
 
-    private final ParkSlotRepository repository;
+    private final ParkSlotService service;
 
-    // ✅ Constructor for dependency injection
-    public ParkSlotController(ParkSlotRepository repository) {
-        this.repository = repository;
+    // ✅ Constructor injection
+    public ParkSlotController(ParkSlotService service) {
+        this.service = service;
     }
 
     // ✅ 1. Get all park slots
     @GetMapping
-    public List<ParkSlot> getAll() {
-        return repository.findAll();
+    public List<ParkSlotDto> getAll() {
+        return service.getAll();
     }
 
-    // ✅ 2. Get a park slot by id
+    // ✅ 2. Get park slot by id
     @GetMapping("/{id}")
-    public ResponseEntity<ParkSlot> getById(@PathVariable Long id) {
-        return repository.findById(id)
+    public ResponseEntity<ParkSlotDto> getById(@PathVariable Long id) {
+        return service.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ✅ 3. Add a new park slot
+    // ✅ 3. Create new park slot
     @PostMapping
-    public ParkSlot create(@RequestBody ParkSlot slot) {
-        return repository.save(slot);
+    public ResponseEntity<ParkSlotDto> create(@RequestBody ParkSlotDto dto) {
+        ParkSlotDto created = service.create(dto);
+        return ResponseEntity.ok(created);
     }
 
-    // ✅ 4. Update a park slot
+    // ✅ 4. Update park slot
     @PutMapping("/{id}")
-    public ResponseEntity<ParkSlot> update(@PathVariable Long id, @RequestBody ParkSlot updatedSlot) {
-        return repository.findById(id)
-                .map(slot -> {
-                    slot.setName(updatedSlot.getName());
-                    slot.setAddress(updatedSlot.getAddress());
-                    slot.setFreeSlots(updatedSlot.getFreeSlots());
-                    slot.setBusySlots(updatedSlot.getBusySlots());
-                    repository.save(slot);
-                    return ResponseEntity.ok(slot);
-                })
+    public ResponseEntity<ParkSlotDto> update(
+            @PathVariable Long id,
+            @RequestBody ParkSlotDto dto
+    ) {
+        return service.update(id, dto)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ✅ 5. Delete a park slot
+    // ✅ 5. Delete park slot
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(slot -> {
-                    repository.delete(slot);
-                    return ResponseEntity.noContent().<Void>build();
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // ✅ 6. Test endpoint
-    @GetMapping("/test")
-    public List<ParkSlot> testAll() {
-        List<ParkSlot> slots = repository.findAll();
-        slots.forEach(slot -> System.out.println(slot.getId() + " " + slot.getName()));
-        return slots;
+        boolean deleted = service.delete(id);
+        return deleted
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
     }
 }

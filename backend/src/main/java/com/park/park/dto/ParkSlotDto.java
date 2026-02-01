@@ -1,30 +1,12 @@
-package com.park.park.entity;
+package com.park.park.dto;
 
-import jakarta.persistence.*;
+public class ParkSlotDto {
 
-@Entity
-@Table(name = "park_slot")
-public class ParkSlot {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String address;
-
-    @Column(name = "free_slots")
     private int freeSlots;
-
-    @Column(name = "busy_slots")
     private int busySlots;
-
-    @Column(name = "rating")
-    private int rating;
-
-    // ✅ No-args constructor
-    public ParkSlot() {}
 
     public int getRating() {
         return rating;
@@ -34,8 +16,13 @@ public class ParkSlot {
         this.rating = rating;
     }
 
+    private int rating;
+
+    // ✅ No-args constructor
+    public ParkSlotDto() {}
+
     // ✅ All-args constructor
-    public ParkSlot(Long id, String name, String address, int freeSlots, int busySlots, int rating) {
+    public ParkSlotDto(Long id, String name, String address, int freeSlots, int busySlots, int rating) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -44,7 +31,7 @@ public class ParkSlot {
         this.rating = rating;
     }
 
-    // ✅ Getters and setters
+    // ✅ Getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -59,16 +46,4 @@ public class ParkSlot {
 
     public int getBusySlots() { return busySlots; }
     public void setBusySlots(int busySlots) { this.busySlots = busySlots; }
-
-    // ✅ Optional: toString() for debugging
-    @Override
-    public String toString() {
-        return "ParkSlot{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", freeSlots=" + freeSlots +
-                ", busySlots=" + busySlots +
-                '}';
-    }
 }
