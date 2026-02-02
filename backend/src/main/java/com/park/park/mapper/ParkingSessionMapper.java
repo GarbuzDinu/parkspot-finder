@@ -12,9 +12,4 @@ public interface ParkingSessionMapper {
     @Mapping(source = "parkSlotId.id", target = "parkSlotId")
     @Mapping(source = "vehicleId.id", target = "vehicleId")
     ParkingSessionDto toDto(ParkingSession entity);
-
-    @Mapping(source = "userId", target = "userId.id")
-    @Mapping(source = "parkSlotId", target = "parkSlotId.id")
-    @Mapping(source = "vehicleId", target = "vehicleId.id")
-    ParkingSession toEntity(ParkingSessionDto dto);
 }
