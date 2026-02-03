@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import utils.ParkingSessionStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Table(name = "parking_sessions")
@@ -39,6 +42,8 @@ public class ParkingSession {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    @Column(name = "status", nullable = false)
-    private String status;
+    // It's nullable for now, till it will be implemented in FE
+    @Enumerated(STRING)
+    @Column(name = "status")
+    private ParkingSessionStatus status;
 }

@@ -27,7 +27,7 @@ public class ParkSlot {
     private Integer capacity;
 
     @Column(name = "occupied", nullable = false)
-    private Boolean occupied;
+    private Integer occupied;
 
     @Column(name = "address", nullable = false)
     private String address;

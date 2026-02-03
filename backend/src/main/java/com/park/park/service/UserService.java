@@ -42,6 +42,7 @@ public class UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setPhoneNumber(request.getPhoneNumber());
+        // Need to change later, when FE is ready
         user.setRoles(null);
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());

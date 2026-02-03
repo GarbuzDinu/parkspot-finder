@@ -9,10 +9,9 @@ public class ParkSlotDto {
     private UUID id;
     private String name;
     private Integer capacity;
-    private Boolean occupied;
+    private Integer occupied;
     private String address;
     private String city;
     private Double rating;
     private Double price;
-
 }

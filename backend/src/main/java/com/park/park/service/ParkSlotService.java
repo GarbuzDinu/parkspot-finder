@@ -4,7 +4,6 @@ import com.park.park.dto.ParkSlotDto;
 import com.park.park.entity.ParkSlot;
 import com.park.park.mapper.ParkSlotMapper;
 import com.park.park.repository.ParkSlotRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

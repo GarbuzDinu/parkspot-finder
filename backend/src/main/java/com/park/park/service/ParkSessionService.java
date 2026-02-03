@@ -39,10 +39,10 @@ public class ParkSessionService {
                 .orElseThrow(() -> new IllegalArgumentException("Vehicle not found with id: " + dto.getVehicleId())));
         entity.setStartTime(dto.getStartTime());
         entity.setEndTime(dto.getEndTime());
-        entity.setStatus(dto.getStatus());
+        // Need to change later, when FE is ready
+        entity.setStatus(null);
 
         var saved = parkingSessionRepository.save(entity);
         return parkingSessionMapper.toDto(saved);
     }
-
 }

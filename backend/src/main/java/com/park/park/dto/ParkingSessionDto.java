@@ -1,6 +1,7 @@
 package com.park.park.dto;
 
 import lombok.Data;
+import utils.ParkingSessionStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,5 +14,5 @@ public class ParkingSessionDto {
     private UUID vehicleId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private String status;
+    private ParkingSessionStatus status;
 }

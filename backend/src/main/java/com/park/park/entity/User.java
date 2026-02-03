@@ -47,4 +47,3 @@ public class User {
     @Column(name = "role")
     private Set<Role> roles = new HashSet<>();
 }
-

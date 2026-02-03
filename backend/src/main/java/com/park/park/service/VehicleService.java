@@ -27,5 +27,4 @@ public class VehicleService {
         var saved = vehicleRepository.save(entity);
         return vehicleMapper.toDto(saved);
     }
-
 }
