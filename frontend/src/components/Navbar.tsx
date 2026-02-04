@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CreateUserDialog } from "./CreateUserDialog";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,8 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
+            <CreateUserDialog />
             <Button size="lg">Book Now</Button>
           </div>
 
@@ -68,7 +70,10 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <Button className="mt-2 w-full">Book Now</Button>
+              <div className="mt-2 w-full flex flex-col gap-2">
+                <CreateUserDialog />
+                <Button className="w-full">Book Now</Button>
+              </div>
             </div>
           </div>
         )}

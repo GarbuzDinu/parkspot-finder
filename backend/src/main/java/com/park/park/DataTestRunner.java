@@ -17,7 +17,7 @@ public class DataTestRunner implements CommandLineRunner {
     public void run(String... args) {
         System.out.println("All park slots from DB:");
         repository.findAll().forEach(slot ->
-                System.out.println(slot.getId() + " " + slot.getName() + slot.getBusySlots())
+                System.out.println(slot.getId() + " " + slot.getName() + slot.getAddress())
         );
     }
 }
