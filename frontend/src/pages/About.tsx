@@ -6,14 +6,12 @@ import PricingSection from "@/components/PricingSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 
-const Index = () => {
+const About = () => {
   return (
     <div className="min-h-screen bg-background">
-      <HeroSection />
-      <FeaturedLocations />
-      <HowItWorks />
+      <AboutSection />
     </div>
   );
 };
 
-export default Index;
+export default About;

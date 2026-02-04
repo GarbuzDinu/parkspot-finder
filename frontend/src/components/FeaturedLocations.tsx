@@ -17,24 +17,24 @@ const FeaturedLocations = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const response = await customInstance<ParkSlot[]>({
-          url: "/api/park-slots",
-          method: "GET",
-        });
-        setLocations(response);
-        setLoading(false);
-      } catch (err: any) {
-        console.error(err);
-        setError(err.message || "Failed to fetch parking spots");
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchLocations = async () => {
+  //     try {
+  //       const response = await customInstance<ParkSlot[]>({
+  //         url: "/api/park-slots",
+  //         method: "GET",
+  //       });
+  //       setLocations(response);
+  //       setLoading(false);
+  //     } catch (err: any) {
+  //       console.error(err);
+  //       setError(err.message || "Failed to fetch parking spots");
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchLocations();
-  }, []);
+  //   fetchLocations();
+  // }, []);
 
   if (loading) return <div className="text-center py-20">Loading parking spots...</div>;
   if (error) return <div className="text-center py-20">Failed to load parking spots: {error}</div>;

@@ -1,1 +1,132 @@
-{"openapi":"3.0.1","info":{"title":"OpenAPI definition","version":"v0"},"servers":[{"url":"http://localhost:8080","description":"Generated server url"}],"paths":{"/api/park-slots/{id}":{"get":{"tags":["park-slot-controller"],"operationId":"getById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ParkSlotDto"}}}}}},"put":{"tags":["park-slot-controller"],"operationId":"update","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ParkSlotDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ParkSlotDto"}}}}}},"delete":{"tags":["park-slot-controller"],"operationId":"delete","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK"}}}},"/api/park-slots":{"get":{"tags":["park-slot-controller"],"operationId":"getAll","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/ParkSlotDto"}}}}}}},"post":{"tags":["park-slot-controller"],"operationId":"create","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ParkSlotDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ParkSlotDto"}}}}}}}},"components":{"schemas":{"ParkSlotDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"address":{"type":"string"},"freeSlots":{"type":"integer","format":"int32"},"busySlots":{"type":"integer","format":"int32"},"rating":{"type":"integer","format":"int32"}}}}}}
+{
+  "openapi": "3.0.1",
+  "info": { "title": "OpenAPI definition", "version": "v0" },
+  "servers": [
+    { "url": "http://localhost:8080", "description": "Generated server url" }
+  ],
+  "paths": {
+    "/api/park-slots/{id}": {
+      "get": {
+        "tags": ["park-slot-controller"],
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ParkSlotDto" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["park-slot-controller"],
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ParkSlotDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ParkSlotDto" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["park-slot-controller"],
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/api/park-slots": {
+      "get": {
+        "tags": ["park-slot-controller"],
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ParkSlotDto" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["park-slot-controller"],
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ParkSlotDto" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ParkSlotDto" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ParkSlotDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "name": { "type": "string" },
+          "address": { "type": "string" },
+          "freeSlots": { "type": "integer", "format": "int32" },
+          "busySlots": { "type": "integer", "format": "int32" },
+          "rating": { "type": "integer", "format": "int32" }
+        }
+      }
+    }
+  }
+}
