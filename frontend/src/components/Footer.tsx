@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer id="contact" className="bg-foreground text-primary-foreground">
       {/* CTA Section */}
-      <div className="container mx-auto px-4 py-16">
+      {/* <div className="container mx-auto px-4 py-16">
         <div className="gradient-hero rounded-3xl p-8 md:p-12 text-center">
           <h2 className="text-2xl md:text-4xl font-bold mb-4">
             Ready to Park Smarter?
@@ -22,7 +22,7 @@ const Footer = () => {
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Footer */}
       <div className="border-t border-primary-foreground/10">

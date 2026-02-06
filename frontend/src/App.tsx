@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import Price from "./pages/Price";
 import { Contact } from "lucide-react";
 import Footer from "./components/Footer";
+import Map from "./pages/Map";
 
 const queryClient = new QueryClient();
 
@@ -18,19 +19,28 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+
       <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/price" element={<Price />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
+        <div className="min-h-screen flex flex-col">
+          <Navbar />
+
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/price" element={<Price />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/map" element={<Map />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+
+          <Footer />
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
+
 
 export default App;
