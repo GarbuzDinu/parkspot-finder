@@ -9,8 +9,10 @@ import com.park.park.repository.UserRepository;
 import com.park.park.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +31,12 @@ public class ParkSessionService {
                 .toList();
     }
 
+    public ParkingSessionDto getParkingSessionById(UUID id) {
+        return parkingSessionRepository.findById(id)
+                .map(parkingSessionMapper::toDto)
+                .orElseThrow(() -> new RuntimeException("Parking session not found with id: " + id));
+    }
+
     public ParkingSessionDto create(ParkingSessionDto dto) {
         ParkingSession entity = new ParkingSession();
         entity.setUserId(userRepository.findById(dto.getUserId())
@@ -44,5 +52,23 @@ public class ParkSessionService {
 
         var saved = parkingSessionRepository.save(entity);
         return parkingSessionMapper.toDto(saved);
+    }
+
+    @Transactional
+    public ParkingSessionDto update(UUID id, ParkingSessionDto dto) {
+        ParkingSession existingSession = parkingSessionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Parking session not found with id: " + id));
+
+        existingSession.setStartTime(dto.getStartTime());
+        existingSession.setEndTime(dto.getEndTime());
+        // later
+        // existingSession.setStatus(null);
+
+        return parkingSessionMapper.toDto(parkingSessionRepository.save(existingSession));
+    }
+
+    @Transactional
+    public void delete(UUID id) {
+        parkingSessionRepository.deleteById(id);
     }
 }

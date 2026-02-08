@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/park-sessions")
@@ -21,9 +22,25 @@ public class ParkSessionController {
         return parkSessionService.getParkingSessions();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ParkingSessionDto> getParkSessionById(@PathVariable UUID id) {
+        return ResponseEntity.ok(parkSessionService.getParkingSessionById(id));
+    }
+
     @PostMapping
     public ResponseEntity<ParkingSessionDto> createParkSession(@RequestBody ParkingSessionDto dto) {
         ParkingSessionDto create = parkSessionService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(create);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ParkingSessionDto> updateParkSession(@PathVariable UUID id, @RequestBody ParkingSessionDto dto) {
+        return ResponseEntity.ok(parkSessionService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteParkSession(@PathVariable UUID id) {
+        parkSessionService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
