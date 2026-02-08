@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
-@Table(name = "park_slot")
+@Table(name = "park_slot") // Adjust table name if needed
 @Setter
 @Getter
 @NoArgsConstructor
@@ -23,21 +23,21 @@ public class ParkSlot {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "capacity", nullable = false)
-    private Integer capacity;
-
-    @Column(name = "occupied", nullable = false)
-    private Integer occupied;
-
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "city", nullable = false)
-    private String city;
+    @Column(name = "lat", nullable = false)
+    private Double lat;
+
+    @Column(name = "lng", nullable = false)
+    private Double lng;
+
+    @Column(name = "total_slots", nullable = false)  // Matches frontend 'totalSlots'
+    private Integer totalSlots;
+
+    @Column(name = "free_slots", nullable = false)  // Matches frontend 'freeSlots'
+    private Integer freeSlots;
 
     @Column(name = "rating", nullable = false)
     private Double rating;
-
-    @Column(name = "price", nullable = false)
-    private Double price;
 }

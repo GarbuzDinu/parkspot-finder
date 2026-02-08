@@ -1,2 +1,5 @@
-
-INSERT INTO park_slot (id, name, capacity, occupied, address, city, rating, price) VALUES ('550e8400-e29b-41d4-a716-446655440000', 'Centrall Park', 100, 20, '123 Main St', 'New York', 4.5, 15.0);
+INSERT INTO park_slot (id, name, address, lat, lng, total_slots, free_slots, rating) VALUES ('550e8400-e29b-41d4-a716-446655440000', 'Parking – Stefan cel Mare Blvd', 'Stefan cel Mare 1, Chișinău', 47.0246, 28.8326, 20, 5, 4.6);
+INSERT INTO park_slot (id, name, address, lat, lng, total_slots, free_slots, rating) VALUES ('550e8400-e29b-41d4-a716-446655440001', 'Parking – Cathedral Park', 'Cathedral Park, Chișinău', 47.0259, 28.8347, 15, 2, 4.8);
+INSERT INTO park_slot (id, name, address, lat, lng, total_slots, free_slots, rating) VALUES ('550e8400-e29b-41d4-a716-446655440002', 'Parking – National Opera', 'Opera Square, Chișinău', 47.0223, 28.8381, 12, 0, 4.4);
+INSERT INTO park_slot (id, name, address, lat, lng, total_slots, free_slots, rating) VALUES ('550e8400-e29b-41d4-a716-446655440003', 'Parking – Central Market', 'Central Market, Chișinău', 47.0186, 28.8414, 30, 11, 4.1);
+INSERT INTO park_slot (id, name, address, lat, lng, total_slots, free_slots, rating) VALUES ('550e8400-e29b-41d4-a716-446655440004', 'Parking – Valea Morilor', 'Valea Morilor Park', 47.0207, 28.8124, 25, 18, 4.7);

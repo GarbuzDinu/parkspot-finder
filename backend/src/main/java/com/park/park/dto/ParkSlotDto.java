@@ -8,10 +8,10 @@ import java.util.UUID;
 public class ParkSlotDto {
     private UUID id;
     private String name;
-    private Integer capacity;
-    private Integer occupied;
     private String address;
-    private String city;
+    private Double lat;
+    private Double lng;
+    private Integer totalSlots;
+    private Integer freeSlots;
     private Double rating;
-    private Double price;
 }

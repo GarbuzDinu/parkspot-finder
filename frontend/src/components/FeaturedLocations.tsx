@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { MapPin, Star, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { parkingLocations } from "@/data/parkingLocations";
 import {
   Carousel,
   CarouselContent,
@@ -8,21 +8,52 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useState } from "react";
 import BookingModal from "./booking/BookingModal";
 
+interface ParkingLocation {
+  id: number;
+  name: string;
+  address: string;
+  rating: number;
+  freeSlots: number;
+  totalSlots: number;
+}
+
 const FeaturedLocations = () => {
-  const [selectedParking, setSelectedParking] = useState<{
-    id: number;
-    name: string;
-  } | null>(null);
+  const [parkingLocations, setParkingLocations] = useState<ParkingLocation[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedParking, setSelectedParking] = useState<{ id: number; name: string } | null>(null);
+
+  useEffect(() => {
+    const fetchParkingLocations = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch("/api/park-slots");
+        if (!response.ok) throw new Error("Failed to fetch parking data");
+
+        const data: ParkingLocation[] = await response.json();
+        setParkingLocations(data);
+      } catch (err: any) {
+        setError(err.message || "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchParkingLocations();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <section className="py-20 bg-secondary/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Featured Parking Locations
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Parking Locations</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Discover available parking spots near you.
           </p>
@@ -31,10 +62,7 @@ const FeaturedLocations = () => {
         <Carousel opts={{ align: "start" }} className="relative">
           <CarouselContent className="-ml-4">
             {parkingLocations.map((location) => (
-              <CarouselItem
-                key={location.id}
-                className="pl-4 md:basis-1/2 lg:basis-1/4"
-              >
+              <CarouselItem key={location.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
                 <div className="bg-card rounded-2xl overflow-hidden shadow-soft h-full">
                   <div className="relative h-48 overflow-hidden">
                     <img
@@ -44,9 +72,7 @@ const FeaturedLocations = () => {
                     />
                     <div className="absolute top-3 right-3 bg-card/90 px-2 py-1 rounded-lg flex items-center gap-1">
                       <Star className="w-4 h-4 text-accent fill-accent" />
-                      <span className="text-sm">
-                        {location.rating.toFixed(1)}
-                      </span>
+                      <span className="text-sm">{location.rating.toFixed(1)}</span>
                     </div>
                   </div>
 
@@ -78,6 +104,7 @@ const FeaturedLocations = () => {
                       >
                         {location.freeSlots === 0 ? "Full" : "Book"}
                       </Button>
+
                       {selectedParking && (
                         <BookingModal
                           open={!!selectedParking}
@@ -92,6 +119,7 @@ const FeaturedLocations = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
+
           <CarouselPrevious className="-left-6" />
           <CarouselNext className="-right-6" />
         </Carousel>

@@ -2,7 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import ParkingList from "./MapList";
-import { parkingLocations, ParkingLocation } from "@/data/parkingLocations";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+
+export interface ParkingLocation {
+  id: number;
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+  totalSlots: number;
+  freeSlots: number;
+  rating: number;
+}
 
 type MapLocation = ParkingLocation & {
   marker?: maplibregl.Marker;
@@ -11,6 +23,8 @@ type MapLocation = ParkingLocation & {
 export default function MapView() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
+
+  const { parkingLocations } = useSelector((state: RootState) => state.parkSlot);
   const locations = useRef<MapLocation[]>(parkingLocations);
 
   useEffect(() => {
@@ -34,7 +48,7 @@ export default function MapView() {
 
     setMap(mapInstance);
     return () => mapInstance.remove();
-  }, []);
+  }, [parkingLocations]);
 
   const handleLocationClick = (location: MapLocation) => {
     if (!map || !location.marker) return;
