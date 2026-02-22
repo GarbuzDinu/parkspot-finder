@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import Price from "./pages/Price";
 import Footer from "./components/Footer";
 import Map from "./pages/Map";
+import ParkingDetails from "./components/parkingDetails/ParkingDetails";
+import ContactPage from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,8 @@ const App = () => (
                 <Route path="/about" element={<About />} />
                 <Route path="/price" element={<Price />} />
                 <Route path="/map" element={<Map />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/parking/:id" element={<ParkingDetails />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

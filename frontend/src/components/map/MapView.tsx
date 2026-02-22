@@ -2,19 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import ParkingList from "./MapList";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-
-export interface ParkingLocation {
-  id: number;
-  name: string;
-  address: string;
-  lat: number;
-  lng: number;
-  totalSlots: number;
-  freeSlots: number;
-  rating: number;
-}
+import { parkingLocations, ParkingLocation } from "@/data/parkingLocations";
+import { useNavigate } from "react-router-dom";
 
 type MapLocation = ParkingLocation & {
   marker?: maplibregl.Marker;
@@ -23,9 +12,8 @@ type MapLocation = ParkingLocation & {
 export default function MapView() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
-
-  const { parkingLocations } = useSelector((state: RootState) => state.parkSlot);
-  const locations = useRef<MapLocation[]>(parkingLocations);
+  const locations = useRef<MapLocation[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!mapContainer.current) return;
@@ -37,28 +25,56 @@ export default function MapView() {
       zoom: 13.5,
     });
 
-    locations.current.forEach((location) => {
+    locations.current = parkingLocations.map((location) => {
       const marker = new maplibregl.Marker({ color: "#2563eb" })
         .setLngLat([location.lng, location.lat])
-        .setPopup(new maplibregl.Popup().setText(location.name))
         .addTo(mapInstance);
 
-      location.marker = marker;
+      // 🔥 Create popup with clickable name
+      const popupContent = document.createElement("div");
+      popupContent.className =
+        "cursor-pointer font-semibold text-sm text-primary hover:underline";
+      popupContent.innerText = location.name;
+
+      popupContent.addEventListener("click", () => {
+        navigate(`/parking/${location.id}`);
+      });
+
+      const popup = new maplibregl.Popup({
+        closeButton: false,
+        closeOnClick: true,
+        offset: 25,
+      }).setDOMContent(popupContent);
+
+      marker.setPopup(popup);
+
+      return { ...location, marker };
     });
 
     setMap(mapInstance);
-    return () => mapInstance.remove();
-  }, [parkingLocations]);
 
+    return () => {
+      mapInstance.remove();
+    };
+  }, []);
+
+  // 🔥 When clicking from list
   const handleLocationClick = (location: MapLocation) => {
     if (!map || !location.marker) return;
-    map.flyTo({ center: [location.lng, location.lat], zoom: 15 });
+
+    map.flyTo({
+      center: [location.lng, location.lat],
+      zoom: 15,
+      essential: true,
+    });
+
     location.marker.togglePopup();
   };
 
   return (
     <div className="relative w-full h-[900px]">
       <div ref={mapContainer} className="w-full h-full" />
+
       <ParkingList
         locations={locations.current}
         onLocationClick={handleLocationClick}
