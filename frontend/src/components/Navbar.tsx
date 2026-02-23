@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Menu, X, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CreateUserDialog } from "./CreateUserDialog";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Price", href: "/price" },
@@ -44,7 +44,9 @@ const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
             <CreateUserDialog />
-            <Button size="lg">Book Now</Button>
+            <Button size="lg" onClick={() => navigate("/map")}>
+              Book Now
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -73,7 +75,9 @@ const Navbar = () => {
               ))}
               <div className="mt-2 w-full flex flex-col gap-2">
                 <CreateUserDialog />
-                <Button className="w-full">Book Now</Button>
+                <Button size="lg" onClick={() => navigate(`/map`)}>
+                  Book Now
+                </Button>
               </div>
             </div>
           </div>

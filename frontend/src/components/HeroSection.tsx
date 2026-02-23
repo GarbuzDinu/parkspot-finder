@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { parkingLocations } from "@/data/parkingLocations";
 
 const locations = [
   { id: 1, name: "Parking – Stefan cel Mare Blvd", lat: 47.0246, lng: 28.8326 },
@@ -17,10 +20,33 @@ const locations = [
   { id: 9, name: "Parking – Malina Mică", lat: 47.0108, lng: 28.8256 },
   { id: 10, name: "Parking – Telecentru", lat: 47.0016, lng: 28.8289 },
 ];
-
 const HeroSection = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredLocations, setFilteredLocations] = useState<
+    typeof parkingLocations
+  >([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+
+    if (!value.trim()) {
+      setFilteredLocations([]);
+      setShowDropdown(false);
+      return;
+    }
+
+    const results = parkingLocations.filter(
+      (location) =>
+        location.name.toLowerCase().includes(value.toLowerCase()) ||
+        location.address.toLowerCase().includes(value.toLowerCase()),
+    );
+
+    setFilteredLocations(results);
+    setShowDropdown(true);
+  };
   useEffect(() => {
     if (!mapContainer.current) return;
 
@@ -72,32 +98,39 @@ const HeroSection = () => {
               Reserve your parking space in advance. No more circling around
               looking for parking. Save time and park with confidence.
             </p>
-            <div
-              className="bg-card rounded-2xl shadow-card p-4 md:p-6 animate-fade-in"
-              style={{ animationDelay: "0.3s" }}
-            >
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-secondary">
-                  <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
-                  <input
-                    type="text"
-                    placeholder="Enter location"
-                    className="bg-transparent w-full outline-none text-foreground placeholder:text-muted-foreground"
-                  />
-                </div>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-secondary">
-                  <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-                  <input
-                    type="text"
-                    placeholder="Date & Time"
-                    className="bg-transparent w-full outline-none text-foreground placeholder:text-muted-foreground"
-                  />
-                </div>
-                <Button size="lg" className="w-full gap-2">
-                  <Search className="w-4 h-4" />
-                  Find Parking
-                </Button>
+            <div className="relative w-full">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-secondary">
+                <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+
+                <input
+                  type="text"
+                  placeholder="Enter location"
+                  value={searchTerm}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  className="bg-transparent w-full outline-none text-foreground placeholder:text-muted-foreground"
+                />
               </div>
+
+              {showDropdown && filteredLocations.length > 0 && (
+                <div className="absolute w-full mt-2 bg-white rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
+                  {filteredLocations.map((location) => (
+                    <div
+                      key={location.id}
+                      className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm"
+                      onClick={() => {
+                        navigate(`/parking/${location.id}`);
+                        setShowDropdown(false);
+                        setSearchTerm("");
+                      }}
+                    >
+                      <div className="font-medium">{location.name}</div>
+                      <div className="text-xs text-gray-500">
+                        {location.address}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <div
               className="flex flex-wrap gap-8 pt-4 animate-fade-in"

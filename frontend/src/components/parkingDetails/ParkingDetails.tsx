@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { parkingLocations } from "@/data/parkingLocations";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +10,9 @@ export default function ParkingDetails() {
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   if (!parking) {
     return <div className="p-20">Parking not found</div>;
   }
