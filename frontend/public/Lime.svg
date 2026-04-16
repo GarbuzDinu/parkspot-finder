@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 478 190.8">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: CocogooseProTrial-Regular, CocogooseProTrial;
+        font-size: 122px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #acff78;
+      }
+
+      .cls-3 {
+        letter-spacing: -.05em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-2" d="m37.47,27.57h.53v18.05c0,11.01-8.94,19.95-19.95,19.95H0v-.53C0,44.36,16.79,27.57,37.47,27.57Z"/>
+        <path class="cls-2" d="m45,27.57h.9c20.48,0,37.1,16.63,37.1,37.1v.9h-18.05c-11.01,0-19.95-8.94-19.95-19.95v-18.05h0Z"/>
+        <path class="cls-2" d="m0,72.57h18.05c11.01,0,19.95,8.94,19.95,19.95v18.05H0v-38H0Z"/>
+        <path class="cls-2" d="m64.95,72.57h18.05c0,20.97-17.03,38-38,38h0v-18.05c0-11.01,8.94-19.95,19.95-19.95Z"/>
+        <path class="cls-2" d="m0,117.57h38C38,138.54,20.97,155.57,0,155.57h0v-38h0Z"/>
+      </g>
+      <text class="cls-1" transform="translate(88.26 108.55)"><tspan x="0" y="0">a</tspan><tspan class="cls-3" x="95.17" y="0">r</tspan><tspan x="159.19" y="0">qie</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -137,8 +137,8 @@ const HeroSection = () => {
               style={{ animationDelay: "0.4s" }}
             >
               {[
-                { value: "500+", label: "Parking Locations" },
-                { value: "50K+", label: "Happy Customers" },
+                { value: "3", label: "Locations" },
+                { value: "120+", label: "Parking spots" },
                 { value: "24/7", label: "Support" },
               ].map((stat) => (
                 <div key={stat.label}>

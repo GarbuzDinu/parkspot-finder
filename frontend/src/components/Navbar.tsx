@@ -1,84 +1,182 @@
 import { useState } from "react";
-import { Menu, X, Car } from "lucide-react";
+import { Menu, X, Car, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { CreateUserDialog } from "./CreateUserDialog";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Price", href: "/price" },
-    { name: "About Us", href: "/about" },
-    { name: "Contact", href: "/contact" },
-  ];
+
+  const toggleDropdown = (name: string) => {
+    setOpenDropdown(openDropdown === name ? null : name);
+  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl gradient-hero flex items-center justify-center shadow-button group-hover:shadow-hover transition-shadow duration-300">
-              <Car className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-foreground">
-              Park<span className="text-primary">Easy</span>
-            </span>
-          </a>
+          {/* 🔹 Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <img
+              src="/Lime.svg"
+              alt="ParkEasy logo"
+              className="h-10 w-auto object-contain group-hover:scale-105 transition"
+            />
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200"
+          {/* 🔹 Desktop Menu */}
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium">
+            {/* PARK */}
+            <div className="relative">
+              <button
+                onClick={() => toggleDropdown("park")}
+                className="flex items-center gap-1 hover:text-primary transition"
               >
-                {link.name}
-              </a>
-            ))}
-          </div>
+                Park <ChevronDown size={16} />
+              </button>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <CreateUserDialog />
-            <Button size="lg" onClick={() => navigate("/map")}>
-              Book Now
+              {openDropdown === "park" && (
+                <div className="absolute top-full mt-3 w-48 bg-white rounded-xl shadow-xl border p-2 animate-fade-in">
+                  <Link
+                    to="/park-now"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    Park now
+                  </Link>
+                  <Link
+                    to="/book"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    Book a Parking
+                  </Link>
+                  <Link
+                    to="/subscriptions"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    Subscriptions
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Partner */}
+            <a
+              href="https://business.parqie.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition"
+            >
+              Become a Partner
+            </a>
+
+            {/* ACCOUNT */}
+            <div className="relative">
+              <button
+                onClick={() => toggleDropdown("account")}
+                className="hover:text-primary transition"
+              >
+                My Account
+              </button>
+
+              {openDropdown === "account" && (
+                <div className="absolute top-full mt-3 w-40 bg-white rounded-xl shadow-xl border p-2">
+                  <Link
+                    to="/login"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/dashboard"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    Dashboard
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* ABOUT */}
+            <div className="relative">
+              <button
+                onClick={() => toggleDropdown("about")}
+                className="hover:text-primary transition"
+              >
+                About
+              </button>
+
+              {openDropdown === "about" && (
+                <div className="absolute top-full mt-3 w-44 bg-white rounded-xl shadow-xl border p-2">
+                  <Link
+                    to="/about"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    Who we are
+                  </Link>
+                  <Link
+                    to="/faq"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    FAQ
+                  </Link>
+                  <Link
+                    to="/jobs"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    Jobs
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="block px-3 py-2 rounded-lg hover:bg-gray-100"
+                  >
+                    Contact
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Download */}
+            <Button variant="outline" size="sm">
+              Download App
             </Button>
+
+            {/* Language */}
+            <div className="flex gap-2 text-xs bg-secondary px-2 py-1 rounded-lg">
+              <button className="hover:text-primary">RO</button>
+              <button className="hover:text-primary">EN</button>
+              <button className="hover:text-primary">RU</button>
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {/* 🔹 Mobile Button */}
+          <button className="md:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X /> : <Menu />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* 🔹 Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-muted-foreground hover:text-primary font-medium py-2 transition-colors duration-200"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-              <div className="mt-2 w-full flex flex-col gap-2">
-                <CreateUserDialog />
-                <Button size="lg" onClick={() => navigate(`/map`)}>
-                  Book Now
-                </Button>
-              </div>
+          <div className="md:hidden mt-4 p-4 rounded-xl bg-white shadow-lg border flex flex-col gap-3 animate-fade-in">
+            <Link to="/park-now">Park now</Link>
+            <Link to="/book">Book a Parking</Link>
+            <Link to="/subscriptions">Subscriptions</Link>
+
+            <a href="https://business.parqie.com">Become a Partner</a>
+
+            <Link to="/login">My Account</Link>
+
+            <Link to="/about">About</Link>
+            <Link to="/faq">FAQ</Link>
+            <Link to="/jobs">Jobs</Link>
+            <Link to="/contact">Contact</Link>
+
+            <Button variant="outline">Download App</Button>
+
+            <div className="flex gap-3 text-sm">
+              <button>RO</button>
+              <button>EN</button>
+              <button>RU</button>
             </div>
           </div>
         )}
