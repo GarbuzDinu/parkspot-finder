@@ -4,26 +4,6 @@ import { Button } from "@/components/ui/button";
 const Footer = () => {
   return (
     <footer id="contact" className="bg-foreground text-primary-foreground">
-      {/* CTA Section */}
-      {/* <div className="container mx-auto px-4 py-16">
-        <div className="gradient-hero rounded-3xl p-8 md:p-12 text-center">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4">
-            Ready to Park Smarter?
-          </h2>
-          <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-            Join thousands of drivers who save time and money with ParkEasy. Start booking your parking spots today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="heroOutline" size="xl">
-              Download App
-            </Button>
-            <Button className="bg-background text-primary hover:bg-background/90" size="xl">
-              Book Now
-            </Button>
-          </div>
-        </div>
-      </div> */}
-
       {/* Main Footer */}
       <div className="border-t border-primary-foreground/10">
         <div className="container mx-auto px-4 py-12">

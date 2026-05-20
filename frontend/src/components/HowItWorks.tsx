@@ -1,76 +1,66 @@
-import { Search, Calendar, Car, CheckCircle } from "lucide-react";
+import availabilityImg from "@/assets/Interface Testing.svg";
+import reserveImg from "@/assets/Work Chat.svg";
+import paymentImg from "@/assets/Deadline.svg";
 
 const steps = [
   {
-    icon: Search,
-    title: "Search Location",
-    description: "Enter your destination and find available parking spots near you.",
-    color: "bg-primary",
+    image: availabilityImg,
+    title: "Verifică disponibilitatea",
+    description:
+      "Deschide aplicația, alege locația și vezi câte locuri disponibile sunt în acest moment.",
   },
   {
-    icon: Calendar,
-    title: "Choose Time",
-    description: "Select your preferred date, arrival time, and duration of parking.",
-    color: "bg-accent",
+    image: reserveImg,
+    title: "Rezervă un loc",
+    description:
+      "Ai un eveniment special și trebuie să te asiguri că găsești loc de parcare? Asigură-te rezervând un loc în avans.",
   },
   {
-    icon: Car,
-    title: "Book & Pay",
-    description: "Secure your spot with instant confirmation and easy payment.",
-    color: "bg-primary",
-  },
-  {
-    icon: CheckCircle,
-    title: "Park & Go",
-    description: "Show your booking confirmation and park hassle-free.",
-    color: "bg-accent",
+    image: paymentImg,
+    title: "Plătește online",
+    description:
+      "Plătești, rezervi, verifici disponibilitatea – toate direct din buzunarul tău.",
   },
 ];
 
 const HowItWorks = () => {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            How It Works
+        {/* Heading */}
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl font-bold text-black">
+            Cum lucrează?
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Booking a parking spot has never been easier. Follow these simple steps and park stress-free.
-          </p>
         </div>
 
-        <div className="relative">
-          {/* Connection line */}
-          <div className="hidden lg:block absolute top-24 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-primary via-accent to-primary" />
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
-              <div
-                key={step.title}
-                className="relative text-center group animate-fade-in"
-                style={{ animationDelay: `${index * 0.15}s` }}
-              >
-                {/* Step number */}
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-card border-2 border-primary text-primary font-bold text-sm flex items-center justify-center shadow-soft z-10">
-                  {index + 1}
-                </div>
-
-                {/* Icon */}
-                <div className={`w-20 h-20 mx-auto rounded-2xl ${step.color} flex items-center justify-center shadow-card group-hover:shadow-hover transition-all duration-300 group-hover:scale-105`}>
-                  <step.icon className="w-9 h-9 text-primary-foreground" />
-                </div>
-
-                {/* Content */}
-                <h3 className="font-bold text-xl text-foreground mt-6 mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {step.description}
-                </p>
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {steps.map((step, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 px-8 py-10 text-center"
+            >
+              {/* Image */}
+              <div className="w-28 h-28 mx-auto mb-6 flex items-center justify-center">
+                <img
+                  src={step.image}
+                  alt={step.title}
+                  className="w-full h-full object-contain"
+                />
               </div>
-            ))}
-          </div>
+
+              {/* Title */}
+              <h3 className="text-lg font-semibold text-black mb-4">
+                {step.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-sm leading-relaxed text-gray-600">
+                {step.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

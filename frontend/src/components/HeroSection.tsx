@@ -70,25 +70,18 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-20"
+      className="relative min-h-screen flex items-center"
     >
       <div className="absolute inset-0 gradient-hero opacity-[0.03]" />
 
       <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-24 items-center">
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium animate-fade-in">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse-soft" />
-              Smart Parking Solution
-            </div>
-
             <h1
               className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
-              Find & Book
-              <span className="text-gradient block">Parking Spots</span>
-              In Seconds
+              Parcheaza rapid si usor, fara stres.
             </h1>
 
             <p
@@ -98,58 +91,83 @@ const HeroSection = () => {
               Reserve your parking space in advance. No more circling around
               looking for parking. Save time and park with confidence.
             </p>
-            <div className="relative w-full">
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-secondary">
-                <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+            <div className="bg-white rounded-[28px] p-6 md:p-8 shadow-2xl max-w-3xl">
+              {/* Location */}
+              <div className="mb-6">
+                <label className="block text-xl font-bold text-[#062B2B] mb-3">
+                  Alege locația:
+                </label>
 
-                <input
-                  type="text"
-                  placeholder="Enter location"
-                  value={searchTerm}
-                  onChange={(e) => handleSearchChange(e.target.value)}
-                  className="bg-transparent w-full outline-none text-foreground placeholder:text-muted-foreground"
-                />
+                <div className="relative">
+                  <select className="w-full h-14 px-5 rounded-xl border border-gray-300 text-lg text-gray-500 appearance-none outline-none">
+                    <option>click pentru a vedea locațiile</option>
+
+                    {parkingLocations.map((location) => (
+                      <option key={location.id} value={location.id}>
+                        {location.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-lg">
+                    ▼
+                  </div>
+                </div>
               </div>
 
-              {showDropdown && filteredLocations.length > 0 && (
-                <div className="absolute w-full mt-2 bg-white rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
-                  {filteredLocations.map((location) => (
-                    <div
-                      key={location.id}
-                      className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm"
-                      onClick={() => {
-                        navigate(`/parking/${location.id}`);
-                        setShowDropdown(false);
-                        setSearchTerm("");
-                      }}
-                    >
-                      <div className="font-medium">{location.name}</div>
-                      <div className="text-xs text-gray-500">
-                        {location.address}
-                      </div>
+              {/* Time Section */}
+              <div className="grid md:grid-cols-[1fr_auto_1fr] gap-4 items-end">
+                {/* From */}
+                <div>
+                  <label className="block text-xl font-bold text-[#062B2B] mb-3">
+                    De la:
+                  </label>
+
+                  <div className="relative">
+                    <select className="w-full h-14 px-5 rounded-xl border border-gray-300 text-xl appearance-none outline-none">
+                      <option>Astăzi, 19:00</option>
+                    </select>
+
+                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
+                      ▼
                     </div>
-                  ))}
+                  </div>
                 </div>
-              )}
+
+                {/* Arrow */}
+                <div className="hidden md:flex items-center justify-center pb-3 text-3xl text-gray-700">
+                  →
+                </div>
+
+                {/* To */}
+                <div>
+                  <label className="block text-xl font-bold text-[#062B2B] mb-3">
+                    Pana la:
+                  </label>
+
+                  <div className="relative">
+                    <select className="w-full h-14 px-5 rounded-xl border border-gray-300 text-xl appearance-none outline-none">
+                      <option>Astăzi, 19:00</option>
+                    </select>
+
+                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
+                      ▼
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Button */}
+              <div className="flex justify-end mt-8">
+                <button className="bg-lime-400 hover:bg-lime-500 transition-colors text-black font-bold text-xl px-8 py-4 rounded-full">
+                  Verifica disponibilitatea
+                </button>
+              </div>
             </div>
             <div
               className="flex flex-wrap gap-8 pt-4 animate-fade-in"
               style={{ animationDelay: "0.4s" }}
             >
-              {[
-                { value: "3", label: "Locations" },
-                { value: "120+", label: "Parking spots" },
-                { value: "24/7", label: "Support" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-2xl md:text-3xl font-bold text-primary">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
           <div

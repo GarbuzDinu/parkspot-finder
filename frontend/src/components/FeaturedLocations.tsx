@@ -21,7 +21,7 @@ const FeaturedLocations = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-20 bg-secondary/30">
+    <section className="py-20">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
@@ -41,7 +41,7 @@ const FeaturedLocations = () => {
                 key={location.id}
                 className="pl-4 md:basis-1/2 lg:basis-1/4"
               >
-                <div className="bg-card rounded-2xl overflow-hidden shadow-soft h-full">
+                <div className="bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img

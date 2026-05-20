@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#053333] backdrop-blur-xl border-b border-border shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* 🔹 Logo */}
@@ -26,14 +26,14 @@ const Navbar = () => {
           </Link>
 
           {/* 🔹 Desktop Menu */}
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium">
+          <div className="hidden md:flex items-center gap-6 text-m font-medium">
             {/* PARK */}
             <div className="relative">
               <button
                 onClick={() => toggleDropdown("park")}
-                className="flex items-center gap-1 hover:text-primary transition"
+                className="flex items-center gap-1 hover:text-primary transition text-white"
               >
-                Park <ChevronDown size={16} />
+                Parcheaza <ChevronDown size={16} />
               </button>
 
               {openDropdown === "park" && (
@@ -65,18 +65,18 @@ const Navbar = () => {
               href="https://business.parqie.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary transition"
+              className="hover:text-primary transition text-white"
             >
-              Become a Partner
+              Devina partener
             </a>
 
             {/* ACCOUNT */}
             <div className="relative">
               <button
                 onClick={() => toggleDropdown("account")}
-                className="hover:text-primary transition"
+                className="hover:text-primary transition text-white"
               >
-                My Account
+                Contul meu
               </button>
 
               {openDropdown === "account" && (
@@ -101,9 +101,9 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={() => toggleDropdown("about")}
-                className="hover:text-primary transition"
+                className="hover:text-primary transition text-white"
               >
-                About
+                Despre noi
               </button>
 
               {openDropdown === "about" && (
@@ -137,15 +137,15 @@ const Navbar = () => {
             </div>
 
             {/* Download */}
-            <Button variant="outline" size="sm">
-              Download App
+            <Button variant="outline" size="sm" className="bg-[#ACFF78] text-black">
+              Descarca aplicatia
             </Button>
 
             {/* Language */}
             <div className="flex gap-2 text-xs bg-secondary px-2 py-1 rounded-lg">
               <button className="hover:text-primary">RO</button>
-              <button className="hover:text-primary">EN</button>
-              <button className="hover:text-primary">RU</button>
+              {/* <button className="hover:text-primary">EN</button>
+              <button className="hover:text-primary">RU</button> */}
             </div>
           </div>
 
@@ -175,8 +175,8 @@ const Navbar = () => {
 
             <div className="flex gap-3 text-sm">
               <button>RO</button>
-              <button>EN</button>
-              <button>RU</button>
+              {/* <button>EN</button>
+              <button>RU</button> */}
             </div>
           </div>
         )}
